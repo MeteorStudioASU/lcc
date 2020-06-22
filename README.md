@@ -22,7 +22,7 @@ These instructions are for Mac OS X.
 
 4. Set your preferred sample rate, e.g., 44100.
 
-5. Press 1 to turn on LCC. Press 2 to turn off LCC.
+5. Press 1 and then enter to turn on LCC. Press 2 and then enter to turn off LCC.
 
 6. See below for advanced parameter tuning.
 
