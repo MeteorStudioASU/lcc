@@ -1,9 +1,9 @@
 # lcc
 Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66). 
 
-LCC is a localized cue correction solution for spatialized audio through standard computer stereo speakers.
+LCC is a localized cue correction solution for spatialized audio through stereo speakers.
 
-These instructions are for Mac OS X.
+These instructions are for macOS.
 
 ## Setup
 
