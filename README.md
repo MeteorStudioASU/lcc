@@ -38,6 +38,4 @@ g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFounda
 (Coming soon)
 
 ## Theory
-(coming soon)
-
-(More details in the Documentation pdfs.) 
+https://medium.com/@mattlane66/spatial-audio-for-speaker-connected-devices-cdf96d127f67?source=friends_link&sk=6c8494ea1eec58bd1458e156a8fa6418 
