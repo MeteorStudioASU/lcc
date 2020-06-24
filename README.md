@@ -52,7 +52,7 @@ choco install mingw
 ```
 To compile the code on a Windows, navigate to the directory, open the PowerShell, and run:
 ```
-g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -o ./lcc.exe
+g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc.exe
 ```
 
 ## Advanced parameter tuning
