@@ -1,5 +1,5 @@
 # lcc
-Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66). 
+Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66), with guidance from Ralph Glasgal (https://www.ambiophonics.org/). 
 
 LCC is a localized cue correction solution for spatialized audio through stereo speakers.
 This is our open source version of LCC.
