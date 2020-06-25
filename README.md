@@ -8,11 +8,11 @@ These instructions are for macOS or OS X.
 
 ## Setup
 
-1. Acquire virtual audio device you can route audio inputs and outputs (e.g., https://github.com/mattingalls/Soundflower/releases/ found in the assists sections).
+1. Install virtual audio device you can route audio inputs and outputs (e.g., https://github.com/mattingalls/Soundflower/releases/ found in the assists sections).
 
-2. In your Apple system preferences for Sound, set your desired speakers to play at a comfortably loud volume. You can further adjust the system volume later with your virtual audio device / Soundflower.
+2. In your Apple System Preferences for Sound, set your desired speakers to play at a comfortably loud volume. You can further adjust the system volume later with your virtual audio device / Soundflower.
 
-3. In the Apple system preferences, select the virtual audio device (Soundflower) as your default audio output device. 
+3. In the Apple System Preferences, select the virtual audio device (Soundflower) as your default audio output device. 
 
 ## Running lcc 
 
