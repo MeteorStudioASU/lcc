@@ -1,4 +1,4 @@
-# LCC - Spatial audio from Stereo Speakers
+# LCC - An open source version of our spatial audio algorithm for binaural playback over closely-spaced stereo loudspeakers.
 Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66), with guidance from Ralph Glasgal (https://www.ambiophonics.org/). 
 
 LCC (localization cue correction) is a solution for spatialized audio through stereo speakers.
