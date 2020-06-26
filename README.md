@@ -32,9 +32,14 @@ These instructions are for macOS or OS X.
 6. See below for advanced parameter tuning.
 
 ## Compiling code
+Install `libsndfile` via `brew`, if you don't have it already:
+```
+brew install libsndfile
+```
+
 To compile the code on a Mac, navigate to the directory, open the Terminal, and run:
 ```
-g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_buffer_rtaudio.cpp RtAudio.cpp  -lm -o lcc;
+g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_rtaudio.cpp RtAudio.cpp  -lm -o lcc;
 ```
 
 ## Advanced parameter tuning
