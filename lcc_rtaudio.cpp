@@ -10,7 +10,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sndfile.h>
 #include <vector>
 
 #define BUFFER_LEN 4096
