@@ -9,7 +9,7 @@ LCC works with symmetric head placement with respect to the speakers (that is, t
 
 These instructions are for macOS or OS X. PC coming soon!
 
-## Setup
+## Setup (macOS)
 
 1. Install virtual audio device you can route audio inputs and outputs (e.g., https://github.com/mattingalls/Soundflower/releases/ found in the assists sections).
 
@@ -17,11 +17,19 @@ These instructions are for macOS or OS X. PC coming soon!
 
 3. In the Apple System Preferences, select the virtual audio device (Soundflower) as your default audio output device. 
 
-## Running lcc 
+## Setup (Windows)
 
-1. Double-click on `lcc` to run it. You may have to right-click it and open it in order to grant permissions to run the application.
+1. Install virtual audio device you can route audio inputs and outputs (e.g. https://www.vb-audio.com/Cable/index.htm)
 
-2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter. If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`).
+2. Select your virtual audio device / `CABLE Input` as your playback device.
+
+## Running lcc
+
+1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it in order to grant permissions to run the application.
+
+2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
+    * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
+    * If you're using VB Cable, this will read `CABLE Output (VB-Audio Virtual Cable)`.
 
 3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your Macbook's internal speakers.)
 
@@ -31,10 +39,20 @@ These instructions are for macOS or OS X. PC coming soon!
 
 6. See below for advanced parameter tuning.
 
-## Compiling code
+## Compiling code (macOS)
 To compile the code on a Mac, navigate to the directory, open the Terminal, and run:
 ```
 g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_rtaudio.cpp RtAudio.cpp  -lm -o lcc;
+```
+
+## Compiling code (Windows, MinGW)
+You need to have MinGW installed:
+```
+choco install mingw
+```
+To compile the code on a Windows, navigate to the directory, open the PowerShell, and run:
+```
+g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc.exe
 ```
 
 ## Advanced parameter tuning
