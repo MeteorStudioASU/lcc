@@ -1,7 +1,7 @@
 # lcc
 Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66), with guidance from Ralph Glasgal (https://www.ambiophonics.org/). 
 
-LCC (localized cue correction) is a solution for spatialized audio through stereo speakers.
+LCC (location cue correction) is a solution for spatialized audio through stereo speakers.
 LCC is a lightweight implementation of crosstalk cancellation so your left ear hears the left channel of audio, and your right ear hears the right channel of audio.
 This is our open source version of LCC.
 
