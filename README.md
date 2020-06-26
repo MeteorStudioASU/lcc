@@ -43,6 +43,9 @@ g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFounda
 ## Theory
 https://medium.com/@mattlane66/spatial-audio-for-speaker-connected-devices-cdf96d127f67?source=friends_link&sk=6c8494ea1eec58bd1458e156a8fa6418 
 
+## Forum
+https://news.ycombinator.com/item?id=23649673
+
 ## Attribution
 This is free and unencumbered software released into the public domain.
 
