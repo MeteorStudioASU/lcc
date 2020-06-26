@@ -19,11 +19,11 @@ These instructions are for macOS or OS X.
 
 ## Running lcc 
 
-1. Double-click on `lcc_app` to run it. You may have to right-click it and open it in order to grant permissions to run the application.
+1. Double-click on `lcc` to run it. You may have to right-click it and open it in order to grant permissions to run the application.
 
-2. When lcc_app asks you to `Select input device:`, type the numerical input value for your new audio device and press enter. If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`)
+2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter. If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`)
 
-3. When lcc_app asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your Macbook's internal speakers.)
+3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your Macbook's internal speakers.)
 
 4. Set your preferred sample rate, e.g., 44100.
 
