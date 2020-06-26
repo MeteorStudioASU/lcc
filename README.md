@@ -7,7 +7,7 @@ This is our open source version of LCC.
 
 LCC works with symmetric head placement with respect to the speakers (that is, the speakers should be placed symmetrically in front of the user). We are in the midst of fine-tuning a solution for crosstalk cancellation with arbitrary tracked head pose. Contact us for more details if you're interested.
 
-These instructions are for macOS or OS X.
+These instructions are for macOS or OS X. PC coming soon!
 
 ## Setup
 
