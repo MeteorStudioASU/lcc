@@ -21,6 +21,9 @@ LCC works with symmetric head placement with respect to the speakers (that is, t
 
 2. Select your virtual audio device / `CABLE Input` as your playback device.
 
+## Setup (Linux)
+[TODO]
+
 ## Running LCC
 
 1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it in order to grant permissions to run the application.
