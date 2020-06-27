@@ -19,11 +19,11 @@ These instructions are for macOS or OS X. PC coming soon!
 
 ## Setup (Windows)
 
-1. Install virtual audio device you can route audio inputs and outputs (e.g. https://www.vb-audio.com/Cable/index.htm)
+1. Install virtual audio device you can route audio inputs and outputs (e.g. https://www.vb-audio.com/Cable/index.htm).
 
 2. Select your virtual audio device / `CABLE Input` as your playback device.
 
-## Running lcc
+## Running LCC
 
 1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it in order to grant permissions to run the application.
 
@@ -35,7 +35,7 @@ These instructions are for macOS or OS X. PC coming soon!
 
 4. Set your preferred sample rate, e.g., 44100.
 
-5. Press 1 and then enter to turn on LCC. Press 2 and then enter to turn off LCC.
+5. Press 1 and then enter to turn on lcc. Press 2 and then enter to turn off lcc.
 
 6. See below for advanced parameter tuning.
 
