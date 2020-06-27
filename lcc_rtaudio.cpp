@@ -74,7 +74,7 @@ int inout( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
         double outRMS = 0;
         double inRMS = 0;
         double ratioRMS=0;
-        for (int i=0;i<nBufferFrames*2;i+=buflen){
+        for (unsigned int i=0;i<nBufferFrames*2;i+=buflen){
             for (int j=0;j<buflen;j++){
                 in_LR[j]=in_RT_LR[i+j];
             }
@@ -106,7 +106,7 @@ int setupAudioStreams(){
     std::cout << "\nNo audio devices.\n";
     exit( 0 );
   }
-  for (int i=0;i<audio.getDeviceCount();i++){
+  for (unsigned int i=0;i<audio.getDeviceCount();i++){
   	info = audio.getDeviceInfo( i );
   	std::cout << i << ":" << info.name << ", rates:";
   	for(size_t i = 0; i < info.sampleRates.size(); ++i)
