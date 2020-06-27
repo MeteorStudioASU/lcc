@@ -3,7 +3,6 @@ Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66), with g
 
 LCC (Localization Cue Correction) is a solution for spatialized audio through stereo speakers.
 LCC is a lightweight implementation of crosstalk cancellation so your left ear hears the left channel of audio, and your right ear hears the right channel of audio.
-This is our open source version of LCC.
 
 LCC works with symmetric head placement with respect to the speakers (that is, the speakers should be placed symmetrically in front of the user). We are in the midst of fine-tuning a solution for crosstalk cancellation with arbitrary tracked head pose. Contact us for more details if you're interested.
 
