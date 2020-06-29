@@ -1,10 +1,10 @@
-# LCC - An open source version of our spatial audio algorithm for binaural playback over closely-spaced stereo loudspeakers.
+# LCC - An open-source version of our spatial audio algorithm for binaural playback over closely-spaced stereo loudspeakers.
 Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66), with guidance from Ralph Glasgal (https://www.ambiophonics.org/). 
 
 LCC (Localization Cue Correction) is a solution for spatialized audio through stereo speakers.
 LCC is a lightweight implementation of crosstalk cancellation so your left ear hears the left channel of audio, and your right ear hears the right channel of audio (LCC functions like a physical barrier positioned between left and right ears and speakers to purify stereo imaging by drastically eliminating comb filtering and crosstalk).
 
-LCC works with symmetric head placement with respect to the speakers (that is, the speakers should be placed symmetrically in front of the listener). We are in the midst of fine-tuning a solution for crosstalk cancellation with arbitrary tracked head pose. Contact us for more details if you're interested.
+LCC works with symmetric head placement with respect to the speakers (an isosceles triangle configuration, not an equilateral triangle arrangement). That is, the speakers should be placed symmetrically in front of the listener. We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked head pose. Contact us for more details if you're interested.
 
 
 ## Setup (macOS)
@@ -26,13 +26,13 @@ LCC works with symmetric head placement with respect to the speakers (that is, t
 
 ## Running LCC
 
-1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it in order to grant permissions to run the application.
+1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it to grant permissions to run the application.
 
 2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
     * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
     * If you're using VB Cable, this will read `CABLE Output (VB-Audio Virtual Cable)`.
 
-3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your Macbook's internal speakers.)
+3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your MacBook's internal speakers.)
 
 4. Set your preferred sample rate, e.g., 44100.
 
