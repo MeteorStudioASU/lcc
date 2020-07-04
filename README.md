@@ -25,8 +25,25 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 2. Select your virtual audio device / `CABLE Input` as your playback device.
 
 ## Setup (Linux)
-[TODO]
 
+
+### Using pulseaudio
+
+1. Make a virtual audio device , called a sink, with pacmd
+	a. Get name of default sink
+		   ` $ pacmd list sinks | grep "Default sink" `
+	       ` Default sink name: alsa_output.pci-xxxx_xx_1b.x.analog-stereo` 
+	b. Use output of sink name, i.e alsa_output.pci-xxxx_xx_1b.x.analog-stereo, to make a new sink
+	       ` $ pacmd load-module module-combine-sink sink_name="Game" slaves="alsa_output.pci-xxxx_xx_1b.x.analog-stereo"` 
+	c. Look for device description under the name Game of virtual audio device in sinks from output of pacmd list sinks. 
+			` $ pacmd list sinks`
+	   You should see something like this which is what lcc will also show for querying input device.
+	   ` device.description = "Simultaneous output to X Analog Stereo"` 
+2. After running lcc and connecting it to sink Game as input and speakers as output,
+	   open PulseAudioVolumeControl
+	   ` $ pavucontrol` 
+3.  The audio stream of the program in playback tab should be set to the device description "Simultaneous output to X Analog Stereo" in order to route audio input to the sink Game which is connected to the speakers.
+ 
 ## Running LCC
 
 1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it to grant permissions to run the application.
