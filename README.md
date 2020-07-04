@@ -39,10 +39,11 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 			` $ pacmd list sinks`
 	   You should see something like this which is what lcc will also show for querying input device.
 	   ` device.description = "Simultaneous output to X Analog Stereo"` 
-2. After running lcc and connecting it to sink Game as input and speakers as output,
-	   open PulseAudioVolumeControl
+2. After running lcc and connecting it to sink Game as input and speakers as output, open PulseAudioVolumeControl
 	   ` $ pavucontrol` 
-3.  The audio stream of the program in playback tab should be set to the device description "Simultaneous output to X Analog Stereo" in order to route audio input to the sink Game which is connected to the speakers.
+3. Check that the RtAudio, is connected to stereo speaker output in Playback tab and
+RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording tab.
+4. The audio stream of the program in playback tab should be set to the device description "Simultaneous output to X Analog Stereo" in order to route audio input to the sink Game which is connected to the speakers.
  
 ## Running LCC
 
