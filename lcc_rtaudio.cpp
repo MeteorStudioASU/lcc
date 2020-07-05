@@ -231,26 +231,160 @@ try {
   return 0;
 }
 
+int setupAudioStreamsNoConsoleQuery(int inputDevice, int outputDevice, int samplerate ){
+  RtAudio audio;
+  RtAudio::DeviceInfo info;
+  
+  RtAudio::StreamParameters iParams, oParams;
+	
+    
+
+	delay=delay_us*1e-6*samplerate;//(sfinfo.samplerate);
+	buflen=ceil(delay)*2;
+	delaymod = buflen/2-delay;
+	delaymodinv= 1-delaymod;
+
+
+
+	printf("input gain: %f\n", inputgain);
+	printf("center channel gain: %f\n", centergain);
+	printf("LCC decay gain: %f\n", decaygain);
+	printf("LCC delay in us: %f\n", delay_us);
+	printf("LCC delay in samples: %f\n", delay);
+	printf("Debug only: delaymod: %f\n", delaymod);
+	printf("Debug only: delaymodinv: %f\n", delaymodinv);
+
+  
+
+  iParams.deviceId = inputDevice; // first available device
+  iParams.nChannels = 2;
+  oParams.deviceId = outputDevice; // first available device
+  oParams.nChannels = 2;
+  unsigned int bufferFrames=(BUFFER_LEN/buflen)*buflen/2;
+  	printf("Debug only: bufferframes: %i\n", bufferFrames);
+
+try {
+    audio.openStream( &oParams, &iParams, RTAUDIO_FLOAT32, samplerate, &bufferFrames, &inout, NULL);
+  }
+  catch ( RtAudioError& e ) {
+    e.printMessage();
+    exit( 0 );
+  }
+try {
+    audio.startStream();
+    int inputchoice;
+    while(1){
+	    if (lcc_toggle){
+	    	std::cout << "\nLCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
+	    }else{
+	    	std::cout << "\nLCC OFF... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
+	    }
+        std::cin >> inputchoice;
+        if (inputchoice == 4){
+        // Stop the stream.
+        audio.stopStream();
+        goto cleanup;
+            
+    } else if (inputchoice == 3){
+    	std::cout<<"Enter new settings\n";
+    	printf("{inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
+    	printf("Example: -3 -3 3 -2.5 32 \n");
+        std::cin.ignore();
+        std::string s;
+        getline(std::cin, s);
+        std::stringstream is(s);
+        double n;
+	    double args[5]; 
+	    int ii=0;
+	    while( is >> n ) {
+	    	args[ii]=n;
+	    	ii++;
+	         // do something with n
+	    	if (ii == 5){
+	    		break;
+	    	}
+	    }
+	    
+        if (ii==5){
+	    	inputgain=dBconv(args[0]);
+   			centergain=dBconv(args[1]);
+   			endgain=dBconv(args[2]);
+   			decaygain=dBconv(args[3]);
+   			delay_us=args[4];//12;
+            
+            delay=delay_us*1e-6*samplerate;//(sfinfo.samplerate);
+            buflen=ceil(delay)*2;
+            delaymod = buflen/2-delay;
+            delaymodinv= 1-delaymod;
+            
+            for (int i=0; i<buflen; i ++){
+                prevOut_LR[i]=0;
+            }
+            
+	    } else{
+	    	printf("Invalid input. \n");
+	    }
+        
+	} else if (inputchoice==2){
+        lcc_toggle=false;
+    } else{
+        lcc_toggle=true;
+    }
+        
+    }
+    }
+  catch ( RtAudioError& e ) {
+    e.printMessage();
+    goto cleanup;
+  }
+ cleanup:
+  if ( audio.isStreamOpen() ) audio.closeStream();
+  return 0;
+}
+
 int main ( int argc, char *argv[] )
 {	
 	printf("./lcc {inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
+	printf("./lcc {inputdevice_num} {outputdevice_num} {sample_rate} {inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
   printf("version 0.8\n");
-
-	if( argc != 6 ) {
-      	printf("Did not receive 6 arguments. Using defaults: ./lcc -3 -3 3 -2.5 32 \n");
-    }else{
-   		inputgain=dBconv(strtod(argv[1], NULL));
-   		centergain=dBconv(strtod(argv[2], NULL));
-   		endgain=dBconv(strtod(argv[3], NULL));
-   		decaygain=dBconv(strtod(argv[4], NULL));
-   		delay_us=strtod(argv[5], NULL);//12;   
-    }
-
-	for (int i=0; i<buflen; i ++){
-		prevOut_LR[i]=0;
+    
+    if( argc == 9) {
+		
+		int inputDevice = strtod(argv[1],NULL);
+		int outputDevice = strtod(argv[2],NULL);
+		int samplerate = strtod(argv[3],NULL);
+		inputgain=dBconv(strtod(argv[4], NULL));
+		centergain=dBconv(strtod(argv[5], NULL));
+		endgain=dBconv(strtod(argv[6], NULL));
+		decaygain=dBconv(strtod(argv[7], NULL));
+		delay_us=strtod(argv[8], NULL);
+		
+		for (int i=0; i<buflen; i ++){
+			prevOut_LR[i]=0;
+		}
+		
+		setupAudioStreamsNoConsoleQuery(inputDevice, outputDevice, samplerate);
 	}
+	else {
+		
+		if( argc != 6 ) {
+      	printf("Did not receive 6 arguments. Using defaults: ./lcc -3 -3 3 -2.5 32 \n");
+		}else{
+			inputgain=dBconv(strtod(argv[1], NULL));
+			centergain=dBconv(strtod(argv[2], NULL));
+			endgain=dBconv(strtod(argv[3], NULL));
+			decaygain=dBconv(strtod(argv[4], NULL));
+			delay_us=strtod(argv[5], NULL);//12;   
+		}
 
-	setupAudioStreams();
+		for (int i=0; i<buflen; i ++){
+			prevOut_LR[i]=0;
+		}
+
+		setupAudioStreams();
+	}
+    
+	
 
 	return 0 ;
 } /* main */
