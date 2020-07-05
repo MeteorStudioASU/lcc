@@ -11,6 +11,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
+#include <fstream>      // std::ifstream
+
+#define QUOTE(name) #name
+#define STR(macro) QUOTE(macro)
+
+//DATADIR macro used by automake for path to data files
+//if DATADIR macro is not defined, define it as data
+#ifndef DATADIR
+    #define DATADIR "../data"
+#endif
+
+#define DATADIR_NAME STR(DATADIR)
+
+std::string DATADIR_STR = DATADIR_NAME;
+std::string param_status_fp = DATADIR_STR + "/rw-param-status.txt";
+std::string choice_fp = DATADIR_STR + "/choice.txt";
+std::string param_fp = DATADIR_STR + "/param.txt";
 
 #define BUFFER_LEN 4096
 
@@ -231,6 +248,7 @@ try {
   return 0;
 }
 
+
 int setupAudioStreamsNoConsoleQuery(int inputDevice, int outputDevice, int samplerate ){
   RtAudio audio;
   RtAudio::DeviceInfo info;
@@ -272,71 +290,136 @@ try {
   }
 try {
     audio.startStream();
-    int inputchoice;
-    while(1){
-	    if (lcc_toggle){
-	    	std::cout << "\nLCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
-	    }else{
-	    	std::cout << "\nLCC OFF... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
-	    }
-        std::cin >> inputchoice;
-        if (inputchoice == 4){
-        // Stop the stream.
-        audio.stopStream();
-        goto cleanup;
-            
-    } else if (inputchoice == 3){
-    	std::cout<<"Enter new settings\n";
-    	printf("{inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
-    	printf("Example: -3 -3 3 -2.5 32 \n");
-        std::cin.ignore();
-        std::string s;
-        getline(std::cin, s);
-        std::stringstream is(s);
-        double n;
-	    double args[5]; 
-	    int ii=0;
-	    while( is >> n ) {
-	    	args[ii]=n;
-	    	ii++;
-	         // do something with n
-	    	if (ii == 5){
-	    		break;
-	    	}
-	    }
-	    
-        if (ii==5){
-	    	inputgain=dBconv(args[0]);
-   			centergain=dBconv(args[1]);
-   			endgain=dBconv(args[2]);
-   			decaygain=dBconv(args[3]);
-   			delay_us=args[4];//12;
-            
-            delay=delay_us*1e-6*samplerate;//(sfinfo.samplerate);
-            buflen=ceil(delay)*2;
-            delaymod = buflen/2-delay;
-            delaymodinv= 1-delaymod;
-            
-            for (int i=0; i<buflen; i ++){
-                prevOut_LR[i]=0;
-            }
-            
-	    } else{
-	    	printf("Invalid input. \n");
-	    }
-        
-	} else if (inputchoice==2){
-        lcc_toggle=false;
-    } else{
-        lcc_toggle=true;
-    }
-        
-    }
-    }
-  catch ( RtAudioError& e ) {
-    e.printMessage();
-    goto cleanup;
-  }
+    
+    std::string line;
+    
+    bool quit = false;
+    
+    while(!quit){
+		
+		//open rw-param-status file and read it
+		 
+		 std::ifstream rw_param_stat_file (param_status_fp.c_str(), std::ifstream::in);
+		 
+		 bool readInput = false;
+		 
+		 if (rw_param_stat_file.is_open())
+		 {
+			while ( std::getline (rw_param_stat_file,line) )
+			{
+			  if(line == "1")
+			  {
+				  std::cout << "reading input..\n";
+				  readInput = true;
+			  }
+			 
+			}
+			rw_param_stat_file.close();
+			
+		 }
+		
+		//if rw-param-status indicates that parameters can be read from i.e. 1
+		if(readInput)
+		{
+			line.clear();
+			
+			//read input parameters file
+			
+			std::ifstream choice_file (choice_fp.c_str(), std::ifstream::in);
+			 
+			int inputchoice;
+			 
+			if (choice_file.is_open())
+			{
+				while ( std::getline (choice_file,line) )
+				{
+				    inputchoice = std::stoi(line);
+				    std::cout << "input chosen is " << inputchoice << std::endl;
+				}
+				
+				choice_file.close();
+			}
+			
+			//if turn lcc on
+			
+			//if turn lcc off
+			
+			//if change settings
+			
+			//if quit
+			
+			
+			if (lcc_toggle){
+				std::cout << "\nLCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
+			}else{
+				std::cout << "\nLCC OFF... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
+			}
+			
+			if (inputchoice == 4){
+			
+				quit = true;
+			} else if (inputchoice == 3){
+				std::cout<<"Enter new settings\n";
+				printf("{inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
+				
+				std::vector <std::string> inputParamStrVec;
+				
+				//read parameters from param.txt
+				std::ifstream param_file (param_fp.c_str(), std::ifstream::in);
+				 
+				if (param_file.is_open()) {
+					while ( std::getline (param_file,line) )
+					{
+						inputParamStrVec.push_back(line);
+						
+					}
+					
+					param_file.close();
+				}
+					
+				if(inputParamStrVec.size() == 8) {
+					int inputDevice = strtod(inputParamStrVec[0].c_str(),NULL);
+					int outputDevice = strtod(inputParamStrVec[1].c_str(),NULL);
+					int samplerate = strtod(inputParamStrVec[2].c_str(),NULL);
+					inputgain=dBconv(strtod(inputParamStrVec[3].c_str(), NULL));
+					centergain=dBconv(strtod(inputParamStrVec[4].c_str(), NULL));
+					endgain=dBconv(strtod(inputParamStrVec[5].c_str(), NULL));
+					decaygain=dBconv(strtod(inputParamStrVec[6].c_str(), NULL));
+					delay_us=strtod(inputParamStrVec[7].c_str(), NULL);
+					
+					for (int i=0; i<buflen; i ++){
+							prevOut_LR[i]=0;
+					}
+					
+				}
+				else {
+					std::cout << "Invalid input!\n";
+				}
+				
+				
+			} else if (inputchoice==2){
+				lcc_toggle=false;
+			} else{
+				lcc_toggle=true;
+			}
+			
+			//put back to state of not reading input
+			std::ofstream rw_param_stat_out;
+			rw_param_stat_out.open (param_status_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
+			if(rw_param_stat_out.is_open())
+			{
+				rw_param_stat_out << "0";
+			}
+				
+		}
+		
+	}
+}
+catch ( RtAudioError& e ) {
+	e.printMessage();
+	goto cleanup;
+}
+			
  cleanup:
   if ( audio.isStreamOpen() ) audio.closeStream();
   return 0;
@@ -346,7 +429,7 @@ int main ( int argc, char *argv[] )
 {	
 	printf("./lcc {inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
 	printf("./lcc {inputdevice_num} {outputdevice_num} {sample_rate} {inputgain} {centergain} {endgain} {LCC_Decaygain} {LCC_Delay_in_microseconds} \n");
-  printf("version 0.8\n");
+    printf("version 0.8\n");
     
     if( argc == 9) {
 		

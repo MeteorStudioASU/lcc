@@ -4,6 +4,10 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 # Define a C++ project.
 project(RtAudio LANGUAGES CXX)
 
+#define data directory 
+option(DATAPATH "Path to data Directory" ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDATADIR=${DATAPATH}")
+
 # standards version
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -69,7 +73,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_definitions(-D__RTAUDIO_DEBUG__)
   if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Werror")
   endif(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
