@@ -47,7 +47,10 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 	` $ pacmd list sinks`
 	
 	You should see something like this which is what lcc will also show for querying input device.
-	
+	` x sinks available. ` 
+	` ... `
+	` name: <Game> `
+	` ... `
 	` device.description = "Simultaneous output to X Analog Stereo"` 
 	   
 	   
@@ -65,7 +68,7 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
     * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
     * If you're using VB Cable, this will read `CABLE Output (VB-Audio Virtual Cable)`.
-    * If you are using pulseaudio, this will read `Monitor Source of Simultaneous output to X Audio Controller Digital Stereo`.
+    * If you are using pulseaudio, this will read `Monitor Source of Simultaneous output to X Audio Controller Analog Stereo`.
 
 3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your MacBook's internal speakers.)
 
