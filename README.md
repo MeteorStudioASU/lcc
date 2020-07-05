@@ -65,6 +65,7 @@ RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording ta
 2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
     * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
     * If you're using VB Cable, this will read `CABLE Output (VB-Audio Virtual Cable)`.
+    * If you are using pulseaudio, this will read `Monitor Source of Simultaneous output to X Audio Controller Digital Stereo`.
 
 3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your MacBook's internal speakers.)
 
@@ -90,6 +91,16 @@ To compile the code on a Windows, navigate to the directory, open the PowerShell
 g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc.exe
 ```
 
+## Compiling code (Linux, Unix)
+To compile the code on a linux or unix distribution, open a terminal, and run:
+```
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+
+```
 ## Advanced parameter tuning
 (Coming soon)
 
