@@ -299,3 +299,9 @@ add_executable(lcc lcc_rtaudio.cpp)
 target_link_libraries(lcc ${LIBRTAUDIO} ${LINKLIBS})
 
 install(FILES ${CMAKE_BINARY_DIR}/lcc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+#installs executable in /usr/local/bin in unix with correct executable permission
+#for system-wide access 
+if (UNIX)
+    install(TARGETS lcc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin )
+endif (UNIX)
