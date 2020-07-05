@@ -1,4 +1,7 @@
-# Scripting with lcc
+# Genneral Scripting with LCC
+
+To work with lcc in any scripting language, just call lcc with 8 inputs and edit text files rw-param-status.txt,
+choice.txt, and param.txt
 
 The workflow for using lcc from any script or GUI interface is that the lcc program
 when executed with 8 inputs executes a special function called setupAudioStreamsNoConsoleQuery.
