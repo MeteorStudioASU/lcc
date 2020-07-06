@@ -63,25 +63,25 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
  
 ## Running LCC
 
-1. Double-click on `lcc` on macOS or `lcc.exe` on Windows to run it. You may have to right-click it and open it to grant permissions to run the application.
+1. Double-click on `lcc_audio` on macOS or `lcc_audio.exe` on Windows to run it. You may have to right-click it and open it to grant permissions to run the application.
 
-2. When lcc asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
+2. When LCC asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
     * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
     * If you're using VB Cable, this will read `CABLE Output (VB-Audio Virtual Cable)`.
     * If you are using pulseaudio, this will read `Monitor Source of Simultaneous output to X Audio Controller Analog Stereo`.
 
-3. When lcc asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your MacBook's internal speakers.)
+3. When LCC asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your MacBook's internal speakers.)
 
 4. Set your preferred sample rate, e.g., 44100.
 
-5. Press 1 and then enter to turn on lcc. Press 2 and then enter to turn off lcc.
+5. Press 1 and then enter to turn on LCC. Press 2 and then enter to turn off LCC.
 
 6. See below for advanced parameter tuning.
 
 ## Compiling code (macOS)
 To compile the code on a Mac, navigate to the directory, open the Terminal, and run:
 ```
-g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_rtaudio.cpp RtAudio.cpp  -lm -o lcc;
+g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_rtaudio.cpp RtAudio.cpp  -lm -o lcc_audio;
 ```
 
 ## Compiling code (Windows, MinGW)
@@ -91,7 +91,7 @@ choco install mingw
 ```
 To compile the code on a Windows, navigate to the directory, open the PowerShell, and run:
 ```
-g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc.exe
+g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc_audio.exe
 ```
 
 ## Compiling code (Linux, Unix)

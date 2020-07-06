@@ -299,13 +299,13 @@ endif (WIN32)
 
 list(GET LIB_TARGETS 0 LIBRTAUDIO)
 
-add_executable(lcc lcc_rtaudio.cpp)
-target_link_libraries(lcc ${LIBRTAUDIO} ${LINKLIBS})
-
-install(FILES ${CMAKE_BINARY_DIR}/lcc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+add_executable(lcc_audio lcc_rtaudio.cpp)
+target_link_libraries(lcc_audio ${LIBRTAUDIO} ${LINKLIBS})
 
 #installs executable in /usr/local/bin in unix with correct executable permission
 #for system-wide access 
 if (UNIX)
-    install(TARGETS lcc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin )
+    install(TARGETS lcc_audio DESTINATION ${CMAKE_INSTALL_PREFIX}/bin )
 endif (UNIX)
+
+install(FILES ${CMAKE_BINARY_DIR}/lcc_audio DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
