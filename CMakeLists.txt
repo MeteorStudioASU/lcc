@@ -295,7 +295,7 @@ endif (WIN32)
 
 list(GET LIB_TARGETS 0 LIBRTAUDIO)
 
-add_executable(lcc lcc_rtaudio.cpp)
-target_link_libraries(lcc ${LIBRTAUDIO} ${LINKLIBS})
+add_executable(lcc_audio lcc_rtaudio.cpp)
+target_link_libraries(lcc_audio ${LIBRTAUDIO} ${LINKLIBS})
 
-install(FILES ${CMAKE_BINARY_DIR}/lcc DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(FILES ${CMAKE_BINARY_DIR}/lcc_audio DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
