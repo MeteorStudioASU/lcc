@@ -67,6 +67,15 @@ To compile the code on a Mac, navigate to the directory, open the Terminal, and 
 g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_rtaudio.cpp RtAudio.cpp  -lm -o lcc_audio;
 ```
 
+## Compiling code (Linux)
+Navigate to the directory, and use the following commands. This will use cmake to build the lcc_audio binary.
+```
+mkdir build
+cd build
+cmake ..
+make VERBOSE=1
+```
+
 ## Compiling code (Windows, MinGW)
 You need to have MinGW installed:
 ```
