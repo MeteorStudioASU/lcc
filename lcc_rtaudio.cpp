@@ -326,15 +326,6 @@ try {
 				choice_file.close();
 			}
 			
-			//if turn lcc on
-			
-			//if turn lcc off
-			
-			//if change settings
-			
-			//if quit
-			
-			
 			if (lcc_toggle){
 				std::cout << "\nLCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
 			}else{
