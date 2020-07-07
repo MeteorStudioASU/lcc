@@ -248,9 +248,18 @@ int setupAudioStreamsNoConsoleQuery(int inputDevice, int outputDevice, int sampl
 	buflen=ceil(delay)*2;
 	delaymod = buflen/2-delay;
 	delaymodinv= 1-delaymod;
-
-
-
+	
+	//open output message
+	std::ofstream output_msg_file;
+	output_msg_file.open (output_msg_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
+	if(!output_msg_file.is_open())
+	{
+		std::cout << "Failed to open output message file " << output_msg_fp << "!\n";
+		//return -1;
+	}
+	
+	output_msg_file << "Using function setupAudioStreamsNoConsoleQuery.\n";
+	printf("Using function setupAudioStreamsNoConsoleQuery.\n");
 	printf("input gain: %f\n", inputgain);
 	printf("center channel gain: %f\n", centergain);
 	printf("LCC decay gain: %f\n", decaygain);
@@ -268,13 +277,6 @@ int setupAudioStreamsNoConsoleQuery(int inputDevice, int outputDevice, int sampl
   unsigned int bufferFrames=(BUFFER_LEN/buflen)*buflen/2;
   	printf("Debug only: bufferframes: %i\n", bufferFrames);
   	
-  //open output message
-	std::ofstream output_msg_file;
-	output_msg_file.open (output_msg_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
-	if(output_msg_file.is_open())
-	{
-		std::cout << "Failed to open output message!\n";
-	}
 
 try {
     audio.openStream( &oParams, &iParams, RTAUDIO_FLOAT32, samplerate, &bufferFrames, &inout, NULL);
@@ -306,6 +308,7 @@ try {
 			  if(line == "1")
 			  {
 				  output_msg_file << "reading input..\n";
+				  std::cout << "reading input..\n";
 				  readInput = true;
 			  }
 			 
