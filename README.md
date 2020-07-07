@@ -2,9 +2,11 @@
 Developed by Robert LiKamWa (@roblkw_asu) and Matthew Lane (@mattlane66), with guidance from Ralph Glasgal (https://www.ambiophonics.org/). 
 
 LCC (Localization Cue Correction) is a solution for spatialized audio through stereo speakers.
-LCC is a lightweight implementation of crosstalk cancellation so your left ear hears the left channel of audio, and your right ear hears the right channel of audio (LCC functions like a physical barrier positioned between left and right ears and speakers to purify stereo imaging by drastically eliminating comb filtering, center channel bass doubling, and crosstalk). These are undesirable anomalies which are found in nearly all loudspeaker playback environments.
+LCC is a lightweight implementation of crosstalk cancellation so your left ear hears the left channel of audio, and your right ear hears the right channel of audio. 
+LCC uses crosstalk cancellation to purify stereo imaging, emulating a physical barrier positioned between left and right ears and speakers. 
+This digital barrier (LCC) preserves spatialization perceptual cues (ITD and ILD) and reduces undesirable anomalies, which are found in nearly all loudspeaker playback environments.
 
-LCC works with symmetric head placement with respect to the speakers (an isosceles triangle configuration, not an equilateral triangle arrangement). That is, the speakers should be placed symmetrically in front of the listener, which greatly reduces head shadow effects. 
+LCC works with symmetric head placement with respect to the speakers in front of the speakers. That is, the speakers should be arranged in a narrow/skinny isosceles triangle configuration, not an equilateral triangle configuration (sometimes called the 60° stereo triangle). 
 Please read our white papers found in the [link](https://medium.com/@mattlane66/spatial-audio-for-speaker-connected-devices-cdf96d127f67) under the [Theory](https://github.com/MeteorStudioASU/lcc/blob/master/README.md#theory) section of this page for more detailed information and configuration suggestions to get the best possible results.
 
 We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked head pose. Contact us for more details if you're interested.
@@ -12,7 +14,7 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 
 ## Setup (macOS)
 
-1. Install virtual audio device you can route audio inputs and outputs (e.g., https://github.com/mattingalls/Soundflower/releases/ found in the assists sections).
+1. Install virtual audio device so that you can route audio inputs and outputs (e.g., https://github.com/mattingalls/Soundflower/releases/ found in the assists sections).
 
 2. In your Apple System Preferences for Sound, set your desired speakers to play at a comfortably loud volume. You can further adjust the system volume later with your virtual audio device / Soundflower.
 
@@ -20,7 +22,7 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 
 ## Setup (Windows)
 
-1. Install virtual audio device you can route audio inputs and outputs (e.g. https://www.vb-audio.com/Cable/index.htm).
+1. Install virtual audio device so that you can route audio inputs and outputs (e.g., https://www.vb-audio.com/Cable/index.htm).
 
 2. Select your virtual audio device / `CABLE Input` as your playback device.
 
@@ -82,6 +84,15 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 To compile the code on a Mac, navigate to the directory, open the Terminal, and run:
 ```
 g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFoundation lcc_rtaudio.cpp RtAudio.cpp  -lm -o lcc_audio;
+```
+
+## Compiling code (Linux)
+Navigate to the directory, and use the following commands. This will use cmake to build the lcc_audio binary.
+```
+mkdir build
+cd build
+cmake ..
+make VERBOSE=1
 ```
 
 ## Compiling code (Windows, MinGW)
