@@ -28,6 +28,7 @@ std::string DATADIR_STR = DATADIR_NAME;
 std::string param_status_fp = DATADIR_STR + "/rw-param-status.txt";
 std::string choice_fp = DATADIR_STR + "/choice.txt";
 std::string param_fp = DATADIR_STR + "/param.txt";
+std::string output_msg_fp = DATADIR_STR + "/output-message.txt";
 
 #define BUFFER_LEN 4096
 
@@ -266,6 +267,14 @@ int setupAudioStreamsNoConsoleQuery(int inputDevice, int outputDevice, int sampl
   oParams.nChannels = 2;
   unsigned int bufferFrames=(BUFFER_LEN/buflen)*buflen/2;
   	printf("Debug only: bufferframes: %i\n", bufferFrames);
+  	
+  //open output message
+	std::ofstream output_msg_file;
+	output_msg_file.open (output_msg_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
+	if(output_msg_file.is_open())
+	{
+		std::cout << "Failed to open output message!\n";
+	}
 
 try {
     audio.openStream( &oParams, &iParams, RTAUDIO_FLOAT32, samplerate, &bufferFrames, &inout, NULL);
@@ -281,6 +290,7 @@ try {
     
     bool quit = false;
     
+    
     while(!quit){
 		
 		//open rw-param-status file and read it
@@ -295,7 +305,7 @@ try {
 			{
 			  if(line == "1")
 			  {
-				  std::cout << "reading input..\n";
+				  output_msg_file << "reading input..\n";
 				  readInput = true;
 			  }
 			 
@@ -320,16 +330,16 @@ try {
 				while ( std::getline (choice_file,line) )
 				{
 				    inputchoice = std::stoi(line);
-				    std::cout << "input chosen is " << inputchoice << std::endl;
+				    output_msg_file << "input chosen is " << inputchoice << std::endl;
 				}
 				
 				choice_file.close();
 			}
 			
 			if (lcc_toggle){
-				std::cout << "\nLCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
+				output_msg_file << "\nLCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
 			}else{
-				std::cout << "\nLCC OFF... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
+				output_msg_file << "\nLCC OFF... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.\n";
 			}
 			
 			if (inputchoice == 4){
@@ -370,7 +380,7 @@ try {
 					
 				}
 				else {
-					std::cout << "Invalid input!\n";
+					output_msg_file << "Invalid input!\n";
 				}
 				
 				
@@ -391,6 +401,8 @@ try {
 		}
 		
 	}
+	
+	output_msg_file.close();
 }
 catch ( RtAudioError& e ) {
 	e.printMessage();
