@@ -396,9 +396,10 @@ try {
 			//put back to state of not reading input
 			std::ofstream rw_param_stat_out;
 			rw_param_stat_out.open (param_status_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
-			if(rw_param_stat_out.is_open())
-			{
+			if(rw_param_stat_out.is_open()) {
 				rw_param_stat_out << "0";
+				std::cout << "Now in state of waiting for new input.";
+				output_msg_file << "Now in state of waiting for new input.";
 			}
 				
 		}
