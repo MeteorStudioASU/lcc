@@ -34,17 +34,11 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 
 1. Make a virtual audio device , called a sink, with pacmd
 
-	a. Get name of default sink
+	a. Make a null sink to act as a virtual cable between audio input and speaker output
 	
-	` $ pacmd list sinks | grep "Default sink" `
-	
-	` Default sink name: alsa_output.pci-xxxx_xx_1b.x.analog-stereo` 
+	` $ pacmd load-module module-null-sink sink_name="Game"` 
 	       
-	b. Use output of sink name, i.e alsa_output.pci-xxxx_xx_1b.x.analog-stereo, to make a new sink
-	
-	` $ pacmd load-module module-combine-sink sink_name="Game" slaves="alsa_output.pci-xxxx_xx_1b.x.analog-stereo"` 
-	       
-	c. Look for device description under the name Game of virtual audio device in sinks from output of pacmd list sinks. 
+	b. Look for device description under the name Game of virtual audio device in sinks from output of pacmd list sinks. 
 	
 	` $ pacmd list sinks`
 	
@@ -53,11 +47,12 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 	` ... `
 	` name: <Game> `
 	` ... `
-	` device.description = "Simultaneous output to X Analog Stereo"` 
+	` device.description = "Null output"` 
 	   
 	   
 2. After running lcc and connecting it to sink Game, ie. "Monitor Source of Simultaneous output to X Analog Stereo", as input and stereo speakers as output, open PulseAudioVolumeControl
-	   ` $ pavucontrol` 
+	
+	` $ pavucontrol` 
 	   
 3. Check that the RtAudio, is connected to stereo speaker output in Playback tab and RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording tab.
 
