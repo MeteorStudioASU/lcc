@@ -83,11 +83,21 @@ g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFounda
 
 ## Compiling code (Linux)
 Navigate to the directory, and use the following commands. This will use cmake to build the lcc_audio binary.
+To compile the code on a linux or unix distribution, open a terminal, and run:
 ```
 mkdir build
 cd build
-cmake ..
-make VERBOSE=1
+cmake .. -DDATAPATH=$HOME/lcc_audio/data/
+make
+sudo make install
+cd /usr/local/bin
+sudo chmod +x lcc_audio
+```
+
+Alternatively, directly compile the program if cmake doesn't work.
+
+```
+g++ -O2 -march=native -mtune=native -D__LINUX_PULSE__ -D__LINUX_ALSA__ -D__UNIX_JACK__ lcc_rtaudio.cpp RtAudio.cpp -o lcc -pthread -ljack -lasound -lpulse-simple
 ```
 
 ## Compiling code (Windows, MinGW)
@@ -100,16 +110,6 @@ To compile the code on a Windows, navigate to the directory, open the PowerShell
 g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc_audio.exe
 ```
 
-## Compiling code (Linux, Unix)
-To compile the code on a linux or unix distribution, open a terminal, and run:
-```
-mkdir build
-cd build
-cmake .. -DDATAPATH=$HOME/lcc_audio/data/
-make
-sudo make install
-
-```
 ## Advanced parameter tuning
 (Coming soon)
 
