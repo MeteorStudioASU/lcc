@@ -110,6 +110,22 @@ To compile the code on a Windows, navigate to the directory, open the PowerShell
 g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc_audio.exe
 ```
 
+## LCC and Scripting
+
+To implement scripting with LCC, 8 arguments must be entered in the command-line to active the scripting mode
+which is just calling function setupAudioStreamNoConsoleQuery().
+
+The function setupAudioStreamNoConsoleQuery() reads from text files for its input in order to keep the
+original functionality of lcc running a loop and checking for input.
+
+Check documentation/scripting-with-lcc.md for details of how the process works and how to implement your
+favorite scripting language to use lcc.
+
+Bash script sample provided in lcc-script-interface/bash/bash-script-sample.sh.
+
+C++ files for interacting with lcc provided in lcc-script-interface/cpp/ directory.
+
+
 ## Advanced parameter tuning
 (Coming soon)
 
