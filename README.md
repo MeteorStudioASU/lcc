@@ -97,7 +97,7 @@ sudo chmod +x lcc_audio
 Alternatively, directly compile the program if cmake doesn't work.
 
 ```
-g++ -O2 -march=native -mtune=native -D__LINUX_PULSE__ -D__LINUX_ALSA__ -D__UNIX_JACK__ lcc_rtaudio.cpp RtAudio.cpp -o lcc -pthread -ljack -lasound -lpulse-simple
+g++ -O2 -march=native -mtune=native -DDATAPATH=$HOME/lcc_audio/data/ -D__LINUX_PULSE__ -D__LINUX_ALSA__ -D__UNIX_JACK__ lcc_rtaudio.cpp RtAudio.cpp -o lcc -pthread -ljack -lasound -lpulse-simple
 ```
 
 ## Compiling code (Windows, MinGW)
