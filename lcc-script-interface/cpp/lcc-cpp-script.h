@@ -16,8 +16,14 @@ struct Parameters
 	std::string delay_usStr;
 };
 
-//function to start LCC program
+//function to start lcc-audio program
 void StartLCCExternally(std::string filePathExec,Parameters param);
+
+//function to end lcc_audio program, recommended to use SafelyQuitLCC 
+void EndLCCExternally();
+
+//function to safely quit LCC
+void SafelyQuitLCC(std::string filePathDataDir);
 
 //funtion to write new parameters in param.txt
 void ChangeParameterValues(std::string filePathDataDir, Parameters param);
@@ -36,5 +42,8 @@ void SetChoiceToTurnOnLCC(std::string filePathDataDir);
 
 //function to set choice.txt to indicate choice to turn off lcc program
 void SetChoiceToTurnOffLCC(std::string filePathDataDir);
+
+//function get output messages from LCC in string format
+std::string GetOutputSTR(std::string filePathDataDir);
 
 #endif

@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 
+FILE* fp = nullptr;
+
 void StartLCCExternally(std::string filePathExec,Parameters param)
 {
 	std::string command_one = filePathExec + " " + param.inputDeviceStr + " " + param.outputDeviceStr + " "
@@ -13,8 +15,29 @@ void StartLCCExternally(std::string filePathExec,Parameters param)
 	
 	std::cout << command_one << std::endl;
 	
-	char write = 'w';
-	popen(command_one.c_str(),&write);
+	
+	fp = popen(command_one.c_str(),"r");
+	
+	if(fp == nullptr)
+	{
+		std::cout << "Error. popen failed!\n";
+		return;
+	}
+}
+
+void EndLCCExternally()
+{
+	if(fp)
+	{
+		pclose(fp);
+	}
+}
+
+void SafelyQuitLCC(std::string filePathDataDir)
+{
+	SetChoiceToQuitProgram(filePathDataDir);
+	
+	MakeLCCTakeInNewInput(filePathDataDir);
 }
 
 void ChangeParameterValues(std::string filePathDataDir, Parameters param)
@@ -85,4 +108,27 @@ void SetChoiceToTurnOffLCC(std::string filePathDataDir)
 	std::string choice = "2";
 	
 	SetChoice(filePathDataDir,choice);
+}
+
+std::string GetOutputSTR(std::string filePathDataDir)
+{
+	std::string outString = "";
+	
+	std::ifstream output_msg_read_file;
+	std::string output_msg_fp = filePathDataDir + "/output-message.txt";
+	output_msg_read_file.open (output_msg_fp.c_str(), std::ifstream::in);
+	if(output_msg_read_file.is_open())
+	{
+		std::string line;
+		while (std::getline(output_msg_read_file, line)) 
+		{
+			outString.append(line);
+		}
+	}
+	else
+	{
+		outString = "Failed to read output-message.txt";
+	}
+	
+	return outString;
 }
