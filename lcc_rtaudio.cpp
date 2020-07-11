@@ -13,6 +13,9 @@
 #include <vector>
 #include <fstream>      // std::ifstream
 
+#include <thread>
+#include <chrono>
+
 #define QUOTE(name) #name
 #define STR(macro) QUOTE(macro)
 
@@ -317,6 +320,8 @@ try {
 			
 		 }
 		
+		std::this_thread::sleep_for (std::chrono::milliseconds(500));
+				
 		//if rw-param-status indicates that parameters can be read from i.e. 1
 		if(readInput)
 		{
