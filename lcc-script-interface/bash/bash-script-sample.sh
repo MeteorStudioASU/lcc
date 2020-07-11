@@ -26,12 +26,12 @@ DELAY_US=44
 nline=$'\n'
 params="$INPUT_DEVICE$nline$OUTPUT_DEVICE$nline$SAMPLE_RATE$nline$INPUT_GAIN$nline$CENTER_GAIN$nline$END_GAIN$nline$DECAY_GAIN$nline$DELAY_US"
 export params
-perl -e ' open DATA, "+>$ENV{HOME}/lcc_audio/data/param.txt" or die "Could not open file $ENV{HOME}/lcc_audio/data/param.txt, $!"; say DATA $ENV{params}; ';
+perl -e ' open DATA, "+>$ENV{HOME}/.lcc_audio/data/param.txt" or die "Could not open file $ENV{HOME}/lcc_audio/data/param.txt, $!"; say DATA $ENV{params}; ';
 
 #erase contents of choice.txt and indicate change settings i.e. 3
-perl -e ' open DATA, "+>$ENV{HOME}/lcc_audio/data/choice.txt" or die "Could not open file $ENV{HOME}/lcc_audio/data/choice.txt, $!"; say DATA "3"; ';
+perl -e ' open DATA, "+>$ENV{HOME}/.lcc_audio/data/choice.txt" or die "Could not open file $ENV{HOME}/lcc_audio/data/choice.txt, $!"; say DATA "3"; ';
 
 #erase contents of rw-param-status.txt and indicate action to take in new input
-perl -e ' open DATA, "+>$ENV{HOME}/lcc_audio/data/rw-param-status.txt" or die "Could not open file $ENV{HOME}/lcc_audio/data/rw-param-status.txt, $!"; say DATA "1"; ';
+perl -e ' open DATA, "+>$ENV{HOME}/.lcc_audio/data/rw-param-status.txt" or die "Could not open file $ENV{HOME}/lcc_audio/data/rw-param-status.txt, $!"; say DATA "1"; ';
 
-cat ~/lcc_audio/data/output-message.txt
+cat ~/.lcc_audio/data/output-message.txt

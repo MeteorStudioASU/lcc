@@ -1,11 +1,1 @@
-Using function setupAudioStreamsNoConsoleQuery.
-reading input..
-input chosen is 3
 
-LCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.
-reading input..
-input chosen is 3
-
-LCC ON... press 1 to turn LCC on, 2 to turn LCC off, 3 to change settings, 4 to quit.
-reading input..
-input chosen is 3

@@ -46,4 +46,7 @@ void SetChoiceToTurnOffLCC(std::string filePathDataDir);
 //function get output messages from LCC in string format
 std::string GetOutputSTR(std::string filePathDataDir);
 
+//function to reset output message
+void ResetOutputMessage(std::string filePathDataDir);
+
 #endif

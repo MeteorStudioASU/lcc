@@ -57,6 +57,8 @@ void ChangeParameterValues(std::string filePathDataDir, Parameters param)
 		param_out << param.decaygainStr << "\n";
 		param_out << param.delay_usStr << "\n";
 	}
+	
+	param_out.close();
 }
 
 void MakeLCCTakeInNewInput(std::string filePathDataDir)
@@ -64,11 +66,12 @@ void MakeLCCTakeInNewInput(std::string filePathDataDir)
 	//set lcc program to start taking in new input through rw-param-stat.txt
 	std::ofstream rw_param_stat_out;
 	std::string param_status_fp = filePathDataDir + "/rw-param-status.txt";
-	rw_param_stat_out.open (param_status_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
+	rw_param_stat_out.open(param_status_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
 	if(rw_param_stat_out.is_open())
 	{
 		rw_param_stat_out << "1";
 	}
+	rw_param_stat_out.close(); 
 }
 
 static void SetChoice(std::string filePathDataDir,std::string choice)
@@ -80,6 +83,7 @@ static void SetChoice(std::string filePathDataDir,std::string choice)
 	{
 		choice_out << choice;
 	}
+	choice_out.close();
 }
 
 void SetChoiceToChangeSettings(std::string filePathDataDir)
@@ -130,5 +134,15 @@ std::string GetOutputSTR(std::string filePathDataDir)
 		outString = "Failed to read output-message.txt";
 	}
 	
+	output_msg_read_file.close();
+	
 	return outString;
+}
+
+void ResetOutputMessage(std::string filePathDataDir)
+{
+	std::ofstream output_msg_read_file;
+	std::string output_msg_fp = filePathDataDir + "/output-message.txt";
+	output_msg_read_file.open (output_msg_fp.c_str(), std::ofstream::out | std::ofstream::trunc );
+	output_msg_read_file.close();
 }
