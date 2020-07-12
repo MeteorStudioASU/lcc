@@ -4,6 +4,15 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 # Define a C++ project.
 project(RtAudio LANGUAGES CXX)
 
+#define data directory
+option(DATAPATH "Path to data Directory" ON)
+
+if(UNIX)
+set(DATAPATH $ENV{HOME}/.lcc_audio/data)
+endif()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDATADIR=${DATAPATH}")
+
 # standards version
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -69,7 +78,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_definitions(-D__RTAUDIO_DEBUG__)
   if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Werror")
   endif(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
@@ -297,5 +306,18 @@ list(GET LIB_TARGETS 0 LIBRTAUDIO)
 
 add_executable(lcc_audio lcc_rtaudio.cpp)
 target_link_libraries(lcc_audio ${LIBRTAUDIO} ${LINKLIBS})
+
+#installs executable in /usr/local/bin in unix with correct executable permission
+#for system-wide access 
+if (UNIX)
+    install(TARGETS lcc_audio 
+			DESTINATION ${CMAKE_INSTALL_PREFIX}/bin 
+			PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+			
+    install(DIRECTORY data/ DESTINATION $ENV{HOME}/.lcc_audio/data
+		PATTERN "data/*"
+        PERMISSIONS OWNER_WRITE OWNER_READ GROUP_WRITE GROUP_READ WORLD_WRITE WORLD_READ)
+   
+endif (UNIX)
 
 install(FILES ${CMAKE_BINARY_DIR}/lcc_audio DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

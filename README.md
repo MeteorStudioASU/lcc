@@ -31,20 +31,31 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 
 ### Using pulseaudio
 
-1. Make a virtual audio device, called a sink, with pacmd
-	a. Get name of default sink.
-		   ` $ pacmd list sinks | grep "Default sink" `
-	       ` Default sink name: alsa_output.pci-xxxx_xx_1b.x.analog-stereo` 
-	b. Use output of sink name, i.e., alsa_output.pci-xxxx_xx_1b.x.analog-stereo, to make a new sink.
-	       ` $ pacmd load-module module-combine-sink sink_name="Game" slaves="alsa_output.pci-xxxx_xx_1b.x.analog-stereo"` 
-	c. Look for device description under the name Game of virtual audio device in sinks from output of pacmd list sinks. 
-			` $ pacmd list sinks`
-	   You should see something like this which is what lcc will also show for querying input device.
-	   ` device.description = "Simultaneous output to X Analog Stereo"` 
-2. After running LCC and connecting it to sink Game, i.e., "Monitor Source of Simultaneous output to X Analog Stereo", as input and stereo speakers as output, open PulseAudioVolumeControl.
-	   ` $ pavucontrol` 
-3. Check that the RtAudio is connected to stereo speaker output in Playback tab and
-RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording tab.
+
+1. Make a virtual audio device , called a sink, with pacmd
+
+	a. Make a null sink to act as a virtual cable between audio input and speaker output
+	
+	` $ pacmd load-module module-null-sink sink_name="Game"` 
+	       
+	b. Look for device description under the name Game of virtual audio device in sinks from output of pacmd list sinks. 
+	
+	` $ pacmd list sinks`
+	
+	You should see something like this which is what lcc will also show for querying input device.
+	` x sinks available. ` 
+	` ... `
+	` name: <Game> `
+	` ... `
+	` device.description = "Null output"` 
+	   
+	   
+2. After running lcc and connecting it to sink Game, ie. "Monitor Source of Simultaneous output to X Analog Stereo", as input and stereo speakers as output, open PulseAudioVolumeControl
+	
+	` $ pavucontrol` 
+	   
+3. Check that the RtAudio, is connected to stereo speaker output in Playback tab and RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording tab.
+
 4. The audio stream of the program in playback tab should be set to the device description "Simultaneous output to X Analog Stereo" in order to route audio input to the sink Game which is connected to the speakers.
  
 ## Running LCC
@@ -54,6 +65,7 @@ RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording ta
 2. When LCC asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
     * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
     * If you're using VB Cable, this will read `CABLE Output (VB-Audio Virtual Cable)`.
+    * If you are using pulseaudio, this will read `Null output`.
 
 3. When LCC asks you to `Select output device:`, type the numerical value for the desired speakers. (For example, `Apple Inc.: Built-in Output` for your MacBook's internal speakers.)
 
@@ -71,11 +83,21 @@ g++ -lpthread -framework CoreAudio -Wall -D__MACOSX_CORE__ -framework CoreFounda
 
 ## Compiling code (Linux)
 Navigate to the directory, and use the following commands. This will use cmake to build the lcc_audio binary.
+To compile the code on a linux or unix distribution, open a terminal, and run:
 ```
 mkdir build
 cd build
 cmake ..
-make VERBOSE=1
+make
+sudo make install
+cd /usr/local/bin
+sudo chmod +x lcc_audio
+```
+
+Alternatively, directly compile the program if cmake doesn't work.
+
+```
+g++ -O2 -march=native -mtune=native -DDATAPATH=$HOME/lcc_audio/data/ -D__LINUX_PULSE__ -D__LINUX_ALSA__ -D__UNIX_JACK__ lcc_rtaudio.cpp RtAudio.cpp -o lcc -pthread -ljack -lasound -lpulse-simple
 ```
 
 ## Compiling code (Windows, MinGW)
@@ -87,6 +109,22 @@ To compile the code on a Windows, navigate to the directory, open the PowerShell
 ```
 g++ -Wall -D__WINDOWS_WASAPI__ .\lcc_rtaudio.cpp .\RtAudio.cpp -static-libstdc++ -static-libgcc -lole32 -loleaut32 -lmfplat -lmfuuid -lwmcodecdspuuid -lksuser -lm -static -o ./lcc_audio.exe
 ```
+
+## LCC and Scripting
+
+To implement scripting with LCC, 8 arguments must be entered in the command-line to active the scripting mode
+which is just calling function setupAudioStreamNoConsoleQuery().
+
+The function setupAudioStreamNoConsoleQuery() reads from text files for its input in order to keep the
+original functionality of lcc running a loop and checking for input.
+
+Check documentation/scripting-with-lcc.md for details of how the process works and how to implement your
+favorite scripting language to use lcc.
+
+Bash script sample provided in lcc-script-interface/bash/bash-script-sample.sh.
+
+C++ files for interacting with lcc provided in lcc-script-interface/cpp/ directory.
+
 
 ## Advanced parameter tuning
 (Coming soon)
