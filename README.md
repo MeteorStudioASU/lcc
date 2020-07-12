@@ -87,7 +87,7 @@ To compile the code on a linux or unix distribution, open a terminal, and run:
 ```
 mkdir build
 cd build
-cmake .. -DDATAPATH=$HOME/lcc_audio/data/
+cmake ..
 make
 sudo make install
 cd /usr/local/bin
