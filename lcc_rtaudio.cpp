@@ -310,8 +310,8 @@ try {
 			{
 			  if(line == "1")
 			  {
-				  output_msg_file << "reading input..\n";
-				  std::cout << "reading input..\n";
+				  output_msg_file << "\nreading input..\n";
+				  std::cout << "\nreading input..\n";
 				  readInput = true;
 			  }
 			 
@@ -319,8 +319,6 @@ try {
 			rw_param_stat_file.close();
 			
 		 }
-		
-		std::this_thread::sleep_for (std::chrono::milliseconds(500));
 				
 		//if rw-param-status indicates that parameters can be read from i.e. 1
 		if(readInput)
@@ -331,7 +329,7 @@ try {
 			
 			std::ifstream choice_file (choice_fp.c_str(), std::ifstream::in);
 			 
-			int inputchoice;
+			int inputchoice = 0;
 			 
 			if (choice_file.is_open())
 			{
@@ -351,7 +349,7 @@ try {
 			}
 			
 			if (inputchoice == 4){
-			
+				output_msg_file << "\nQuitting LCC.\n";
 				quit = true;
 			} else if (inputchoice == 3){
 				std::cout<<"Enter new settings\n";
@@ -388,7 +386,7 @@ try {
 					
 				}
 				else {
-					output_msg_file << "Invalid input!\n";
+					output_msg_file << "\nInvalid input!\n";
 				}
 				
 				
@@ -409,7 +407,25 @@ try {
 				
 		}
 		
+		//delay so that loop doesn't use excessive cpu
+		std::this_thread::sleep_for (std::chrono::milliseconds(500));
+		
 	}
+	//end while loop
+	
+	//put back to state of not reading input
+	std::ofstream rw_param_stat_out;
+	rw_param_stat_out.open (param_status_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
+	if(rw_param_stat_out.is_open()) {
+		rw_param_stat_out << "0";
+		std::cout << "Now in state of waiting for new input.";
+		output_msg_file << "Now in state of waiting for new input.";
+	}
+	
+	//reset choice
+	std::ofstream choice_out;
+	choice_out.open (choice_fp.c_str(), std::ofstream::out | std::ofstream::trunc);
+	choice_out.close();
 	
 	output_msg_file.close();
 }

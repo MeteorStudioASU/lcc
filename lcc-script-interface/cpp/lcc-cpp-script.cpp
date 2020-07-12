@@ -127,6 +127,7 @@ std::string GetOutputSTR(std::string filePathDataDir)
 		while (std::getline(output_msg_read_file, line)) 
 		{
 			outString.append(line);
+			outString.append("\n");
 		}
 	}
 	else
