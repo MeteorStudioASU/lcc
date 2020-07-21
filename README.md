@@ -50,13 +50,13 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
 	` device.description = "Null output"` 
 	   
 	   
-2. After running lcc and connecting it to sink Game, ie. "Monitor Source of Simultaneous output to X Analog Stereo", as input and stereo speakers as output, open PulseAudioVolumeControl
+2. After running lcc and connecting it to sink Game, ie. "Monitor of Null Output", as input and stereo speakers as output, open PulseAudioVolumeControl
 	
 	` $ pavucontrol` 
 	   
-3. Check that the RtAudio, is connected to stereo speaker output in Playback tab and RtAudio is connected to "Simultaneous output to X Analog Stereo" in Recording tab.
+3. Check that the RtAudio is connected to stereo speaker output in Playback tab and RtAudio is connected to "Monitor of Null output" in Recording tab.
 
-4. The audio stream of the program in playback tab should be set to the device description "Simultaneous output to X Analog Stereo" in order to route audio input to the sink Game which is connected to the speakers.
+4. The audio stream of the program in playback tab should be set to the device description "Null output" in order to route audio input to the sink Game which is connected to the speakers.
  
 ## Running LCC
 
