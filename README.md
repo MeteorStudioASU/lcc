@@ -60,7 +60,7 @@ We are fine-tuning a solution for crosstalk cancellation with arbitrary tracked 
  
 ## Running LCC
 
-1. Double-click on `lcc_audio` on macOS or `lcc_audio.exe` on Windows to run it. You may have to right-click it and open it to grant permissions to run the application.
+1. Double-click on `lcc_audio` on macOS or `lcc_audio.exe` on Windows to run it. You may have to right-click it and open it to grant permissions to run the application. You may also need to open the terminal before opening the `lcc_audio` app on macOS and run `chmod +x PathToFile` (in this case, the PathToFile being lcc_audio).
 
 2. When LCC asks you to `Select input device:`, type the numerical input value for your new audio device and press enter.
     * If you're using Soundflower, this will read `ingalls for Cycling ’74: Soundflower (2ch)`.
