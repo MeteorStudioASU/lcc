@@ -127,9 +127,6 @@ Bash script sample provided in lcc-script-interface/bash/bash-script-sample.sh.
 C++ files for interacting with lcc provided in lcc-script-interface/cpp/ directory.
 
 
-## Advanced parameter tuning
-(Coming soon)
-
 ## Theory
 https://medium.com/@mattlane66/spatial-audio-for-speaker-connected-devices-cdf96d127f67?source=friends_link&sk=6c8494ea1eec58bd1458e156a8fa6418 
 
